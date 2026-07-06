@@ -16,4 +16,4 @@ your-command 2>&1 | logslop
 logslop < your.log
 ```
 
-Requires Python 3.8+. Run `logslop --help` for options (`-t` match threshold, `-n` max clusters).
+Requires Python 3.7+. Run `logslop --help` for options (`-t` match threshold, `-n` max clusters).

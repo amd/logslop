@@ -7,7 +7,7 @@ name = "logslop"
 dynamic = ["version"]
 description = "Log deduplication: strip repeated lines so readers and agents can focus on key events."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.7"
 license = { text = "MIT" }
 authors = [{ name = "Advanced Micro Devices, Inc." }]
 

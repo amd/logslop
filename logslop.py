@@ -8,21 +8,21 @@ Large log files are often full of repeated or near-duplicate lines.
 LogsLop strips that redundancy, so you get one representative per message type.
 Particularly useful when logs are too big to send or process as-is (e.g. into LLM context windows).
 
+Install in any python (3.7+) environment using "pip install logslop".
+
 Usage:
-  python3 logslop.py   (reads stdin)
-  your-command 2>&1 | python3 logslop.py   (pipes stderr to stdout and both through logslop)
+  logslop < your_log.txt (reads from a file)
+  your-command 2>&1 | logslop (pipes stderr to stdout and both through logslop)
 
-Examples:
-  journalctl --no-pager | python3 logslop.py
-  python3 logslop.py < your_log.txt
-
-To add to PATH: copy to e.g. ~/.local/bin, then export PATH="$HOME/.local/bin:$PATH" (add to ~/.bashrc to persist).
+Alternatively, just copy logslop.py and run as a standalone script, adding it to PATH if needed.
 
 Options (argparse, all optional):
   -n 5000              max clusters to track
   -t 0.6               Jaccard similarity threshold (0-1, higher = more aggressive deduping)
   --no-normalize-digits  disable digit/hex normalization (rare)
 """
+
+from __future__ import annotations
 
 import argparse
 import re
@@ -46,7 +46,7 @@ def jaccard(a: list[str], b: list[str]) -> float:
     """Token-counting Jaccard similarity."""
     sa, sb = set(a), set(b)
     inter = len(sa & sb)
-    union = len(sa | sb)
+    union = len(sa.union(sb))
     return inter / union if union else 1.0
 
 
